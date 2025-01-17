@@ -1,7 +1,13 @@
+import style from "./App.module.css";
+
 function App() {
   return (
     <>
-      <h1>Buscador de clima</h1>
+      <h1 className={style.title}>Buscador de clima</h1>
+      <div className={style.container}>
+        <p>1</p>
+        <p>2</p>
+      </div>
     </>
   );
 }
