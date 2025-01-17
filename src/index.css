@@ -1,6 +1,8 @@
 :root {
   --white: #ecf0f1;
+  --white-sec: #95a5a6;
   --primary: #2980b9;
+  --primary-sec: #3498db;
 }
 
 html {
