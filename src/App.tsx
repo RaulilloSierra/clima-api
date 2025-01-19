@@ -1,15 +1,16 @@
 import useWeather from "./hooks/useWeather.ts";
 import Form from "./components/Form/Form.tsx";
 import style from "./App.module.css";
+import WeatherData from "./components/WeatherDetail/WeatherDetail.tsx";
 
 function App() {
-  const { fetchWeather } = useWeather();
+  const { weather, fetchWeather, hasWeatherData } = useWeather();
   return (
     <>
       <h1 className={style.title}>Buscador de clima</h1>
       <div className={style.container}>
         <Form fetchWeather={fetchWeather} />
-        <p>2</p>
+        {hasWeatherData && <WeatherData weather={weather} />}
       </div>
     </>
   );
