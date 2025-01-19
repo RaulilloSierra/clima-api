@@ -9,10 +9,11 @@ type FormProps = {
 };
 
 function Form({ fetchWeather }: FormProps) {
-  const [search, setSearch] = useState<SearchType>({
+  const initialState = {
     city: "",
     country: "",
-  });
+  };
+  const [search, setSearch] = useState<SearchType>(initialState);
 
   const [alert, setAlert] = useState("");
 
@@ -35,6 +36,7 @@ function Form({ fetchWeather }: FormProps) {
 
     setAlert("");
     fetchWeather(search);
+    setSearch(initialState);
   };
 
   return (
