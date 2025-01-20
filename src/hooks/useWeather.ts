@@ -27,8 +27,8 @@ export default function useWeather() {
     },
   };
   const [weather, setWeather] = useState<Weather>(initialState);
-
   const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   const fetchWeather = async (search: SearchType) => {
     const { VITE_API_KEY } = import.meta.env;
@@ -37,6 +37,11 @@ export default function useWeather() {
     try {
       const geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${VITE_API_KEY}`;
       const { data } = await axios.get(geoURL);
+      // Comprobar si existe
+      if (!data.length) {
+        setNotFound(true);
+        return;
+      }
       const { lat, lon } = data[0];
       const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${VITE_API_KEY}`;
 
@@ -44,6 +49,7 @@ export default function useWeather() {
       const { data: wheaterResult } = await axios(weatherURL);
       const result = WeatherSchema.safeParse(wheaterResult);
       if (result.success) {
+        setNotFound(false);
         setWeather(result.data);
       } else {
         console.log("No se encontraron resultados");
@@ -60,6 +66,7 @@ export default function useWeather() {
   return {
     weather,
     loading,
+    notFound,
     fetchWeather,
     hasWeatherData,
   };
